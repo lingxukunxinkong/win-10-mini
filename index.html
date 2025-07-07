@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows 11 by web</title>
+    <title>windows10---by kunkun999</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -11,52 +11,144 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            touch-action: manipulation;
+        }
+        
+        :root {
+            --taskbar-height: 48px;
+            --window-header-height: 36px;
+            --primary-blue: #0067b8;
+            --accent-color: #4CA6FF;
         }
         
         body {
             height: 100vh;
             overflow: hidden;
-            background: linear-gradient(rgba(0, 51, 102, 0.8), rgba(0, 51, 102, 0.6)), 
-                        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFRyYW5zZm9ybT0icm90YXRlKDEzNSkiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMDAzMzk5IiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDAxZjVjIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDwvbGluZWFyR3JhZGllbnQ+CiAgPC9kZWZzPgogIDxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+CiAgPGcgb3BhY2l0eT0iMC4yIj4KICAgIDxyZWN0IHg9IjAlIiB5PSIwJSIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDIiIC8+CiAgICA8cmVjdCB4PSIxMCUiIHk9IjAlIiB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMiIgLz4KICA8L2c+Cjwvc3ZnPg==');
+            background: #0078d4;
+            background: linear-gradient(to bottom right, #0067b8, #00a2ed);
             background-size: cover;
-            transition: background 0.5s ease;
-            touch-action: none;
+            animation: bgPulse 20s infinite alternate;
         }
         
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        @keyframes bgPulse {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
         
-        /* 动画关键帧 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* 登录界面 */
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e') no-repeat center center;
+            background-size: cover;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         
-        @keyframes scaleIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        #login-screen.hidden {
+            opacity: 0;
+            transform: translateY(-50px);
+            pointer-events: none;
         }
         
-        @keyframes ripple {
-            to { transform: scale(4); opacity: 0; }
+        .login-logo {
+            width: 110px;
+            height: 110px;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            border: 3px solid rgba(255,255,255,0.6);
+            animation: float 4s ease-in-out infinite;
         }
         
-        @keyframes iconPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
         
-        @keyframes windowOpen {
-            0% { transform: scale(0.8) translateY(20px); opacity: 0; }
-            100% { transform: scale(1) translateY(0); opacity: 1; }
+        .login-logo i {
+            font-size: 60px;
+            color: var(--primary-blue);
+        }
+        
+        .user-name {
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 25px;
+            font-weight: 400;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+        }
+        
+        .password-field {
+            position: relative;
+            margin-bottom: 20px;
+            width: 280px;
+        }
+        
+        #signin-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 4px;
+            background: rgba(0, 123, 222, 0.9);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 123, 222, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 123, 222, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 123, 222, 0); }
+        }
+        
+        #signin-btn:hover {
+            background: rgb(0, 140, 255);
+            transform: translateY(-2px);
+        }
+        
+        .login-footer {
+            position: absolute;
+            bottom: 30px;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .login-footer:hover {
+            transform: scale(1.05);
+        }
+        
+        /* 系统主容器 */
+        #windows-container {
+            display: none;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        #windows-container.active {
+            display: block;
+            opacity: 1;
         }
         
         /* 桌面图标区域 */
@@ -65,7 +157,7 @@
             top: 0;
             left: 0;
             right: 0;
-            bottom: 48px;
+            bottom: var(--taskbar-height);
             padding: 30px;
             display: grid;
             grid-template-columns: repeat(auto-fill, 90px);
@@ -81,31 +173,38 @@
             cursor: pointer;
             padding: 12px 8px;
             border-radius: 8px;
-            transition: all 0.25s ease;
-            animation: fadeIn 0.4s ease-out backwards;
-            position: relative;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            animation: iconAppear 0.6s forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        @keyframes iconAppear {
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .desktop-icon:hover {
             background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .desktop-icon:hover i {
-            animation: iconPulse 0.6s ease;
+            transform: translateY(-5px) scale(1.05);
         }
         
         .desktop-icon img, .desktop-icon i {
             width: 52px;
             height: 52px;
             margin-bottom: 8px;
-            transition: transform 0.25s ease;
+            transition: all 0.4s ease;
             font-size: 42px;
-            color: #4CA6FF;
-            pointer-events: none;
+            color: var(--accent-color);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        
+        .desktop-icon:hover i {
+            transform: scale(1.1);
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
         }
         
         .desktop-icon span {
@@ -115,12 +214,15 @@
             word-break: break-word;
             display: block;
             line-height: 1.4;
-            pointer-events: none;
+            transition: transform 0.3s;
+        }
+        
+        .desktop-icon:hover span {
+            transform: translateY(2px);
         }
         
         /* 任务栏样式 */
         #taskbar {
-            --taskbar-height: 48px;
             position: absolute;
             bottom: 0;
             left: 0;
@@ -128,13 +230,18 @@
             height: var(--taskbar-height);
             background: rgba(30, 30, 30, 0.85);
             backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
             display: flex;
             align-items: center;
             padding: 0 15px;
             border-top: 1px solid rgba(100, 100, 100, 0.3);
             z-index: 1000;
             gap: 8px;
+            transform: translateY(100%);
+            animation: taskbarAppear 0.8s 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        @keyframes taskbarAppear {
+            to { transform: translateY(0); }
         }
         
         .taskbar-icon {
@@ -146,7 +253,7 @@
             justify-content: center;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             color: white;
             font-size: 18px;
             overflow: hidden;
@@ -154,6 +261,7 @@
         
         .taskbar-icon:hover {
             background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
         }
         
         .taskbar-icon.active {
@@ -167,18 +275,19 @@
             left: 12px;
             right: 12px;
             height: 3px;
-            background: #4CA6FF;
+            background: var(--accent-color);
             border-radius: 3px 3px 0 0;
+            animation: activeIndicator 0.8s;
+        }
+        
+        @keyframes activeIndicator {
+            0% { transform: translateY(5px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
         
         #start-button {
             font-size: 22px;
             margin-right: 5px;
-            transition: transform 0.2s;
-        }
-        
-        #start-button:hover {
-            transform: scale(1.1);
         }
         
         #system-tray {
@@ -195,31 +304,23 @@
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.2s;
-            position: relative;
+            transition: all 0.3s;
         }
         
         .tray-icon:hover {
             background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .tray-icon.notification::after {
-            content: '';
-            position: absolute;
-            top: 3px;
-            right: 3px;
-            width: 6px;
-            height: 6px;
-            background: #e81123;
-            border-radius: 50%;
-            border: 1px solid rgba(30, 30, 30, 0.7);
+            transform: scale(1.15);
         }
         
         .tray-time {
             padding: 0 8px;
             font-size: 13px;
             cursor: default;
-            user-select: none;
+            transition: all 0.3s;
+        }
+        
+        .tray-time:hover {
+            text-shadow: 0 0 8px rgba(255,255,255,0.7);
         }
         
         .taskbar-divider {
@@ -229,217 +330,34 @@
             margin: 0 8px;
         }
         
-        /* 修复后的开始菜单样式 - 确保图标正确对齐 */
-        #start-menu {
-            position: absolute;
-            bottom: 50px;
-            left: 15px;
-            width: 520px;
-            height: 540px;
-            border-radius: 12px;
-            display: none;
-            grid-template-columns: 60px 1fr;
-            overflow: hidden;
-            z-index: 100;
-            animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            transform-origin: left bottom;
-        }
-        
-        #start-menu.visible {
-            display: grid;
-        }
-        
-        #start-sidebar {
-            background: rgba(35, 35, 35, 0.85);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20px;
-        }
-        
-        .start-sidebar-icon {
-            width: 46px;
-            height: 46px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .start-sidebar-icon:hover, .start-sidebar-icon.active {
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        #start-content {
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            background: rgba(42, 42, 42, 0.85);
-            overflow: hidden;
-        }
-        
-        #search-box {
-            background: rgba(60, 60, 60, 0.6);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            padding: 0 18px;
-            margin-bottom: 25px;
-            transition: all 0.3s;
-        }
-        
-        #search-box:hover {
-            background: rgba(70, 70, 70, 0.7);
-        }
-        
-        #search-box:focus-within {
-            background: rgba(80, 80, 80, 0.8);
-            box-shadow: 0 0 0 2px rgba(76, 166, 255, 0.5);
-        }
-        
-        #search-box i {
-            color: #aaa;
-            margin-right: 12px;
-            font-size: 18px;
-        }
-        
-        #search-box input {
-            background: transparent;
-            border: none;
-            color: white;
-            width: 100%;
-            font-size: 16px;
-            height: 42px;
-            outline: none;
-        }
-        
-        /* 修复开始菜单图标对齐问题 */
-        #pinned-apps {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .pinned-app {
-            text-align: center;
-            cursor: pointer;
-            padding: 12px 6px;
-            border-radius: 8px;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .pinned-app:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .pinned-app:hover i {
-            animation: iconPulse 0.5s ease;
-        }
-        
-        .pinned-app i {
-            font-size: 28px;
-            color: #4CA6FF;
-            margin-bottom: 8px;
-            transition: transform 0.3s;
-        }
-        
-        .pinned-app span {
-            color: white;
-            font-size: 12px;
-            display: block;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        #recommended-section {
-            background: rgba(60, 60, 60, 0.4);
-            border-radius: 8px;
-            padding: 12px;
-            margin-top: auto;
-        }
-        
-        .recommended-item {
-            display: flex;
-            padding: 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.2s;
-            align-items: center;
-        }
-        
-        .recommended-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .recommended-item .icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-        
-        .recommended-item .icon i {
-            color: white;
-            font-size: 18px;
-        }
-        
-        .recommended-item .info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-width: 0;
-        }
-        
-        .recommended-item .name {
-            color: white;
-            font-size: 13px;
-            margin-bottom: 3px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .recommended-item .time {
-            color: #aaa;
-            font-size: 11px;
-        }
-        
         /* 窗口系统 */
         .window {
             position: absolute;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             z-index: 10;
             min-width: 320px;
             min-height: 220px;
-            background: rgba(32, 32, 32, 0.92);
+            background: rgba(32, 32, 32, 0.95);
             backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(100, 100, 100, 0.25);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
             display: none;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: all 0.3s ease;
         }
         
         .window.visible {
             display: flex;
-            animation: windowOpen 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation: windowAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        
+        @keyframes windowAppear {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
         
         .window.maximized {
@@ -448,7 +366,7 @@
             width: 100% !important;
             height: calc(100vh - 48px) !important;
             border-radius: 0;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         .window-header {
@@ -459,7 +377,7 @@
             padding: 0 12px;
             cursor: move;
             user-select: none;
-            position: relative;
+            transition: background 0.3s;
         }
         
         .window-header.active {
@@ -475,6 +393,7 @@
             text-overflow: ellipsis;
             font-weight: 500;
             padding-left: 8px;
+            transition: all 0.3s;
         }
         
         .window-controls {
@@ -490,12 +409,21 @@
             justify-content: center;
             color: #aaa;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             border-radius: 4px;
         }
         
         .window-btn:hover {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.1);
+        }
+        
+        .window-minimize:hover {
+            color: #ffc107;
+        }
+        
+        .window-maximize:hover {
+            color: #4CAF50;
         }
         
         .window-close:hover {
@@ -508,6 +436,8 @@
             padding: 15px;
             overflow: auto;
             color: #e0e0e0;
+            background: rgba(25, 25, 25, 0.85);
+            transition: all 0.3s;
         }
         
         /* 文件资源管理器 */
@@ -531,11 +461,12 @@
             display: flex;
             align-items: center;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
         .file-item:hover {
             background: rgba(255, 255, 255, 0.1);
+            padding-left: 22px;
         }
         
         .file-item.active {
@@ -547,7 +478,12 @@
             width: 22px;
             text-align: center;
             font-size: 16px;
-            color: #4CA6FF;
+            color: var(--accent-color);
+            transition: transform 0.3s;
+        }
+        
+        .file-item:hover i {
+            transform: scale(1.2);
         }
         
         #file-main {
@@ -564,18 +500,6 @@
             margin-bottom: 18px;
         }
         
-        .path-segment {
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-size: 13px;
-        }
-        
-        .path-segment:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
         .files-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
@@ -587,818 +511,466 @@
             cursor: pointer;
             padding: 12px 8px;
             border-radius: 8px;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
         .file-icon:hover {
             background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .file-icon:hover i {
-            animation: iconPulse 0.5s ease;
+            transform: translateY(-5px);
         }
         
         .file-icon i {
             font-size: 36px;
-            color: #4CA6FF;
+            color: var(--accent-color);
             margin-bottom: 8px;
-            transition: transform 0.3s;
+            transition: all 0.3s;
+        }
+        
+        .file-icon:hover i {
+            transform: scale(1.15);
         }
         
         .file-icon span {
             color: #ddd;
             font-size: 13px;
             display: block;
-        }
-        
-        /* 浏览器窗口 - 修复后可访问 */
-        #browser .window-content {
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: calc(100% - 36px);
-        }
-        
-        #browser-toolbar {
-            height: 46px;
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            background: rgba(50, 50, 50, 0.75);
-            border-bottom: 1px solid rgba(100, 100, 100, 0.3);
-        }
-        
-        #browser-toolbar i {
-            color: #aaa;
-            margin: 0 6px;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            transition: all 0.2s;
-            font-size: 18px;
-        }
-        
-        #browser-toolbar i:hover {
-            background: rgba(255, 255, 255, 0.12);
-        }
-        
-        #url-bar {
-            flex: 1;
-            height: 34px;
-            background: rgba(60, 60, 60, 0.6);
-            border-radius: 17px;
-            margin: 0 12px;
-            padding: 0 15px;
-            color: #ddd;
-            font-size: 14px;
-            border: none;
-            outline: none;
             transition: all 0.3s;
         }
         
-        #url-bar:focus {
-            background: rgba(80, 80, 80, 0.8);
-            box-shadow: 0 0 0 2px rgba(76, 166, 255, 0.5);
+        .file-icon:hover span {
+            transform: translateY(3px);
+            color: white;
         }
         
-        #browser-content {
-            flex: 1;
-            background: white;
-            overflow: hidden;
-        }
-        
-        #browser-content iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        /* 照片应用 */
-        #photos .window-content {
+        /* 设置应用 */
+        #settings .window-content {
+            display: flex;
             padding: 0;
-            display: grid;
-            grid-template-columns: 240px 1fr;
-            height: calc(100% - 36px);
         }
         
-        #photos-sidebar {
+        #settings-sidebar {
+            width: 220px;
             background: rgba(40, 40, 40, 0.75);
-            padding: 15px 0;
+            padding: 20px 0;
             border-right: 1px solid rgba(100, 100, 100, 0.3);
         }
         
-        .photos-item {
-            padding: 10px 18px;
+        .settings-item {
+            padding: 12px 20px;
             color: #ddd;
             font-size: 14px;
             display: flex;
             align-items: center;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
-        .photos-item:hover {
+        .settings-item:hover {
             background: rgba(255, 255, 255, 0.1);
         }
         
-        .photos-item.active {
+        .settings-item.active {
             background: rgba(76, 166, 255, 0.2);
         }
         
-        .photos-item i {
-            margin-right: 12px;
-            width: 22px;
-            text-align: center;
-            font-size: 16px;
-            color: #4CA6FF;
-        }
-        
-        #photos-main {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            grid-auto-rows: minmax(180px, auto);
-            gap: 15px;
-            padding: 20px;
-            overflow-y: auto;
-            height: 100%;
-        }
-        
-        .photo-thumb {
-            background: #3498db;
-            border-radius: 8px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
+        .settings-item i {
+            margin-right: 15px;
             font-size: 18px;
-            cursor: pointer;
-            transition: transform 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            position: relative;
+            width: 24px;
+            color: var(--accent-color);
         }
         
-        .photo-thumb:hover {
-            transform: scale(1.03);
-        }
-        
-        /* 日历应用 */
-        #calendar .window-content {
+        #settings-content {
+            flex: 1;
             padding: 25px;
-            display: flex;
-            flex-direction: column;
-            height: calc(100% - 36px);
+            overflow-y: auto;
         }
         
-        .calendar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
+        .settings-section {
+            display: none;
         }
         
-        .calendar-nav {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .settings-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
         }
         
-        .calendar-nav-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.2s;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .calendar-nav-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .calendar-nav-title {
-            font-size: 18px;
-            font-weight: 500;
+        .settings-header {
+            font-size: 24px;
+            margin-bottom: 25px;
             color: white;
-        }
-        
-        .calendar-weekdays {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            text-align: center;
-            color: #aaa;
-            font-size: 13px;
-            padding: 8px 0;
+            font-weight: 500;
+            padding-bottom: 15px;
             border-bottom: 1px solid rgba(100, 100, 100, 0.3);
         }
         
-        .calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            grid-auto-rows: 1fr;
-            gap: 8px;
-            margin-top: 12px;
-            flex: 1;
+        .settings-card {
+            background: rgba(60, 60, 60, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         
-        .calendar-day {
-            aspect-ratio: 1;
-            border-radius: 8px;
+        .settings-card h3 {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .system-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(76, 166, 255, 0.1);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-            color: #ddd;
-            font-size: 15px;
+            margin: 0 auto;
         }
         
-        .calendar-day:not(.other-month):hover {
-            background: rgba(255, 255, 255, 0.1);
+        .system-icon i {
+            font-size: 60px;
+            color: var(--accent-color);
         }
         
-        .calendar-day.today {
-            background: rgba(76, 166, 255, 0.2);
-            color: white;
-            font-weight: bold;
+        .system-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
         
-        .calendar-day.event::after {
-            content: '';
-            position: absolute;
-            bottom: 6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 5px;
-            height: 5px;
-            background: #4CA6FF;
-            border-radius: 50%;
+        .info-item {
+            margin-bottom: 15px;
         }
         
-        .calendar-day.other-month {
-            color: #777;
-        }
-        
-        .calendar-day.selected {
-            background: rgba(76, 166, 255, 0.4);
-            color: white;
-            font-weight: bold;
-        }
-        
-        #calendar-events {
-            margin-top: 25px;
-            background: rgba(60, 60, 60, 0.4);
-            border-radius: 8px;
-            padding: 15px;
-        }
-        
-        .calendar-event {
-            padding: 10px;
-            border-radius: 6px;
-            background: rgba(76, 166, 255, 0.15);
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-        
-        .calendar-event:last-child {
-            margin-bottom: 0;
-        }
-        
-        .event-time {
-            font-weight: bold;
-            color: #4CA6FF;
+        .info-label {
+            font-size: 12px;
+            color: #aaa;
             margin-bottom: 5px;
         }
         
-        .event-title {
-            color: #ddd;
+        .info-value {
+            font-size: 14px;
+            color: white;
         }
         
-        /* 终端窗口 */
-        #terminal {
-            background: #0c0c0c;
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
         }
         
-        #terminal .window-content {
-            background: #0c0c0c;
-            padding: 0;
-            font-family: 'Courier New', monospace;
-            color: #ddd;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+        .spec-item {
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s;
         }
         
-        #terminal-header {
-            padding: 8px 12px;
-            background: #252526;
-            color: #ccc;
-            font-size: 13px;
-            border-bottom: 1px solid #303030;
+        .spec-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: rgba(50, 50, 50, 0.7);
         }
         
-        #terminal-header i {
-            margin-right: 8px;
-            color: #4CA6FF;
-        }
-        
-        #terminal-content {
-            flex: 1;
-            padding: 12px;
-            overflow: auto;
-            white-space: pre-wrap;
-        }
-        
-        #terminal-input {
-            display: flex;
-            align-items: center;
-            padding: 8px 12px;
-            background: #1a1a1a;
-            border-top: 1px solid #333;
-        }
-        
-        #terminal-prompt {
-            margin-right: 8px;
-            color: #4CA6FF;
-        }
-        
-        #terminal-command {
-            background: transparent;
-            border: none;
-            color: #ddd;
-            outline: none;
-            flex: 1;
-            font-family: 'Courier New', monospace;
+        .spec-item i {
+            font-size: 24px;
+            color: var(--accent-color);
+            margin-bottom: 12px;
         }
         
         /* 响应式设计 */
         @media (max-width: 768px) {
-            #start-menu {
-                width: 95vw;
-                height: 80vh;
-                left: 2.5vw;
-            }
-            
-            .window {
-                min-width: 280px;
-                min-height: 200px;
-            }
-            
-            #pinned-apps {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            
-            #notification-center {
-                width: 90vw;
-                right: 5vw;
+            .desktop-icon {
+                width: 80px;
+                padding: 10px 6px;
             }
             
             #desktop {
-                gap: 15px;
                 padding: 20px;
+                gap: 15px;
+                grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+            }
+            
+            .window {
+                min-width: 95%;
+                left: 2.5% !important;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 桌面图标 -->
-    <div id="desktop">
-        <div class="desktop-icon" data-app="file-explorer">
-            <i class="fas fa-folder"></i>
-            <span>文件资源管理器</span>
+    <!-- 登录页面 -->
+    <div id="login-screen">
+        <div class="login-logo">
+            <i class="fas fa-user"></i>
         </div>
-        <div class="desktop-icon" data-app="browser">
-            <i class="fab fa-edge"></i>
-            <span>Microsoft Edge</span>
+        <div class="user-name">管理员</div>
+        <div class="password-field">
+            <button id="signin-btn">登 录</button>
         </div>
-        <div class="desktop-icon" data-app="terminal">
-            <i class="fas fa-terminal"></i>
-            <span>终端</span>
-        </div>
-        <div class="desktop-icon" data-app="settings">
-            <i class="fas fa-cog"></i>
-            <span>设置</span>
-        </div>
-        <div class="desktop-icon" data-app="store">
-            <i class="fas fa-shopping-bag"></i>
-            <span>Microsoft Store</span>
-        </div>
-        <div class="desktop-icon" data-app="photos">
-            <i class="fas fa-image"></i>
-            <span>照片</span>
-        </div>
-        <div class="desktop-icon" data-app="calendar">
-            <i class="fas fa-calendar-alt"></i>
-            <span>日历</span>
+        <div class="login-footer">
+            <i class="fas fa-power-off"></i>
         </div>
     </div>
     
-    <!-- 任务栏 -->
-    <div id="taskbar">
-        <div id="start-button" class="taskbar-icon">
-            <i class="fab fa-windows"></i>
-        </div>
-        <div class="taskbar-divider"></div>
-        <div class="taskbar-icon active" data-app="file-explorer">
-            <i class="fas fa-folder"></i>
-        </div>
-        <div class="taskbar-icon" data-app="browser">
-            <i class="fab fa-edge"></i>
-        </div>
-        <div class="taskbar-icon" data-app="terminal">
-            <i class="fas fa-terminal"></i>
+    <!-- 系统主容器 -->
+    <div id="windows-container">
+        <!-- 桌面图标 -->
+        <div id="desktop">
+            <div class="desktop-icon" data-app="file-explorer" style="animation-delay: 0.1s">
+                <i class="fas fa-folder"></i>
+                <span>文件资源管理器</span>
+            </div>
+            <div class="desktop-icon" data-app="browser" style="animation-delay: 0.2s">
+                <i class="fab fa-edge"></i>
+                <span>Microsoft Edge</span>
+            </div>
+            <div class="desktop-icon" data-app="terminal" style="animation-delay: 0.3s">
+                <i class="fas fa-terminal"></i>
+                <span>终端</span>
+            </div>
+            <div class="desktop-icon" data-app="settings" style="animation-delay: 0.4s">
+                <i class="fas fa-cog"></i>
+                <span>设置</span>
+            </div>
+            <div class="desktop-icon" data-app="photos" style="animation-delay: 0.5s">
+                <i class="fas fa-images"></i>
+                <span>照片</span>
+            </div>
+            <div class="desktop-icon" data-app="store" style="animation-delay: 0.6s">
+                <i class="fas fa-store"></i>
+                <span>应用商店</span>
+            </div>
         </div>
         
-        <div id="system-tray">
-            <div class="tray-icon">
-                <i class="fas fa-wifi"></i>
+        <!-- 任务栏 -->
+        <div id="taskbar">
+            <div id="start-button" class="taskbar-icon">
+                <i class="fab fa-windows"></i>
             </div>
-            <div class="tray-icon">
-                <i class="fas fa-volume-up"></i>
+            <div class="taskbar-divider"></div>
+            <div class="taskbar-icon active" data-app="file-explorer">
+                <i class="fas fa-folder"></i>
             </div>
-            <div class="tray-icon notification" id="notification-icon">
-                <i class="fas fa-bell"></i>
+            <div class="taskbar-icon" data-app="browser">
+                <i class="fab fa-edge"></i>
             </div>
-            <div class="tray-time">2025年6月13日 15:30</div>
-        </div>
-    </div>
-    
-    <!-- 开始菜单（完全对齐修复版） -->
-    <div id="start-menu" class="glass-effect">
-        <div id="start-sidebar">
-            <div class="start-sidebar-icon active"><i class="fas fa-th"></i></div>
-            <div class="start-sidebar-icon"><i class="fas fa-cog"></i></div>
-            <div class="start-sidebar-icon"><i class="fas fa-user"></i></div>
-            <div class="start-sidebar-icon"><i class="fas fa-power-off"></i></div>
-        </div>
-        <div id="start-content">
-            <div id="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="搜索应用、设置和文件">
+            <div class="taskbar-icon" data-app="terminal">
+                <i class="fas fa-terminal"></i>
             </div>
-            <div id="pinned-apps">
-                <div class="pinned-app">
-                    <i class="fab fa-edge"></i>
-                    <span>Microsoft Edge</span>
-                </div>
-                <div class="pinned-app">
-                    <i class="fas fa-file"></i>
-                    <span>Word</span>
-                </div>
-                <div class="pinned-app">
-                    <i class="fas fa-table"></i>
-                    <span>Excel</span>
-                </div>
-                <div class="pinned-app">
-                    <i class="fas fa-store"></i>
-                    <span>应用商店</span>
-                </div>
-                <div class="pinned-app">
-                    <i class="fas fa-camera"></i>
-                    <span>相机</span>
-                </div>
-                <div class="pinned-app">
-                    <i class="fas fa-photo-video"></i>
-                    <span>照片</span>
-                </div>
-                <div class="pinned-app">
-                    <i class="fas fa-music"></i>
-                    <span>音乐</span>
-                </div>
-                <div class="pinned-app">
-                    <i class="fas fa-gamepad"></i>
-                    <span>游戏</span>
-                </div>
-                <div class="pinned-app">
-                    <i class="fas fa-map"></i>
-                    <span>地图</span>
-                </div>
-                <div class="pinned-app">
-                    <i class="fas fa-cloud"></i>
-                    <span>OneDrive</span>
-                </div>
-                <div class="pinned-app">
-                    <i class="fas fa-calculator"></i>
-                    <span>计算器</span>
-                </div>
-                <div class="pinned-app">
-                    <i class="fas fa-paint-brush"></i>
-                    <span>画图</span>
-                </div>
-            </div>
-            <div id="recommended-section">
-                <div class="recommended-item">
-                    <div class="icon" style="background:#0067b8;">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <div class="info">
-                        <div class="name">项目计划书 - 最终版.docx</div>
-                        <div class="time">今天 · 文档</div>
-                    </div>
-                </div>
-                <div class="recommended-item">
-                    <div class="icon" style="background:#2d2c6d;">
-                        <i class="fas fa-image"></i>
-                    </div>
-                    <div class="info">
-                        <div class="name">风景摄影合集 (24张).jpg</div>
-                        <div class="time">昨天 · 图片</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 应用窗口 -->
-    <!-- 文件资源管理器 -->
-    <div id="file-explorer" class="window" style="top: 100px; left: 200px; width: 800px; height: 500px;">
-        <div class="window-header">
-            <div class="window-title">文件资源管理器</div>
-            <div class="window-controls">
-                <div class="window-btn window-minimize"><i class="fas fa-minus"></i></div>
-                <div class="window-btn window-maximize"><i class="far fa-square"></i></div>
-                <div class="window-btn window-close"><i class="fas fa-times"></i></div>
-            </div>
-        </div>
-        <div class="window-content">
-            <div id="file-explorer-content">
-                <div id="file-sidebar">
-                    <div class="file-item active">
-                        <i class="fas fa-home"></i> 主页
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-desktop"></i> 桌面
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-download"></i> 下载
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-folder"></i> 文档
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-music"></i> 音乐
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-image"></i> 图片
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-film"></i> 视频
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-hdd"></i> 本地磁盘 (C:)
-                    </div>
-                    <div class="file-item">
-                        <i class="fas fa-network-wired"></i> 网络
-                    </div>
-                </div>
-                <div id="file-main">
-                    <div class="path-bar">
-                        <div class="path-segment">主页</div>
-                        <div class="path-segment"> > </div>
-                        <div class="path-segment">桌面</div>
-                    </div>
-                    <div class="files-grid">
-                        <div class="file-icon">
-                            <i class="fas fa-folder"></i>
-                            <span>重要项目</span>
-                        </div>
-                        <div class="file-icon">
-                            <i class="fas fa-folder"></i>
-                            <span>个人文档</span>
-                        </div>
-                        <div class="file-icon">
-                            <i class="fas fa-file-pdf"></i>
-                            <span>月度报告.pdf</span>
-                        </div>
-                        <div class="file-icon">
-                            <i class="fas fa-file-word"></i>
-                            <span>项目文档.docx</span>
-                        </div>
-                        <div class="file-icon">
-                            <i class="fas fa-file-excel"></i>
-                            <span>预算表.xlsx</span>
-                        </div>
-                        <div class="file-icon">
-                            <i class="fas fa-file-image"></i>
-                            <span>屏保.jpg</span>
-                        </div>
-                        <div class="file-icon">
-                            <i class="fas fa-file-video"></i>
-                            <span>演示视频.mp4</span>
-                        </div>
-                        <div class="file-icon">
-                            <i class="fas fa-file-music"></i>
-                            <span>背景音乐.mp3</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 浏览器窗口（完全修复版，可正常使用） -->
-    <div id="browser" class="window" style="top: 150px; left: 300px; width: 900px; height: 600px;">
-        <div class="window-header">
-            <div class="window-title">Microsoft Edge - Bing</div>
-            <div class="window-controls">
-                <div class="window-btn window-minimize"><i class="fas fa-minus"></i></div>
-                <div class="window-btn window-maximize"><i class="far fa-square"></i></div>
-                <div class="window-btn window-close"><i class="fas fa-times"></i></div>
-            </div>
-        </div>
-        <div class="window-content">
-            <div id="browser-toolbar">
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-right"></i>
-                <i class="fas fa-redo"></i>
-                <i class="fas fa-home"></i>
-                <input type="text" id="url-bar" value="https://www.bing.com" placeholder="搜索或输入网址">
-                <i class="fas fa-search"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-ellipsis-v"></i>
-            </div>
-            <div id="browser-content">
-                <iframe src="https://www.bing.com" frameborder="0"></iframe>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 照片应用 -->
-    <div id="photos" class="window" style="top: 180px; left: 350px; width: 800px; height: 550px;">
-        <div class="window-header">
-            <div class="window-title">照片</div>
-            <div class="window-controls">
-                <div class="window-btn window-minimize"><i class="fas fa-minus"></i></div>
-                <div class="window-btn window-maximize"><i class="far fa-square"></i></div>
-                <div class="window-btn window-close"><i class="fas fa-times"></i></div>
-            </div>
-        </div>
-        <div class="window-content">
-            <div id="photos-sidebar">
-                <div class="photos-item active">
-                    <i class="fas fa-images"></i> 图片库
-                </div>
-                <div class="photos-item">
-                    <i class="fas fa-cloud"></i> OneDrive
-                </div>
-                <div class="photos-item">
-                    <i class="fas fa-camera"></i> 相机
-                </div>
-                <div class="photos-item">
-                    <i class="fas fa-user-circle"></i> 相册
-                </div>
-            </div>
-            <div id="photos-main">
-                <div class="photo-thumb" style="background: linear-gradient(45deg, #3498db, #9b59b6);">旅行摄影</div>
-                <div class="photo-thumb" style="background: linear-gradient(45deg, #e74c3c, #f39c12);">自然风光</div>
-                <div class="photo-thumb" style="background: linear-gradient(45deg, #2ecc71, #1abc9c);">人物肖像</div>
-                <div class="photo-thumb" style="background: linear-gradient(45deg, #9b59b6, #8e44ad);">城市建筑</div>
-                <div class="photo-thumb" style="background: linear-gradient(45deg, #34495e, #2c3e50);">夜景</div>
-                <div class="photo-thumb" style="background: linear-gradient(45deg, #d35400, #f39c12);">家庭聚会</div>
-                <div class="photo-thumb" style="background: linear-gradient(45deg, #27ae60, #16a085);">美食</div>
-                <div class="photo-thumb" style="background: linear-gradient(45deg, #2980b9, #8e44ad);">艺术创作</div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 日历应用 -->
-    <div id="calendar" class="window" style="top: 120px; left: 500px; width: 700px; height: 600px;">
-        <div class="window-header">
-            <div class="window-title">日历</div>
-            <div class="window-controls">
-                <div class="window-btn window-minimize"><i class="fas fa-minus"></i></div>
-                <div class="window-btn window-maximize"><i class="far fa-square"></i></div>
-                <div class="window-btn window-close"><i class="fas fa-times"></i></div>
-            </div>
-        </div>
-        <div class="window-content">
-            <div class="calendar-header">
-                <div class="calendar-nav">
-                    <div class="calendar-nav-btn"><i class="fas fa-chevron-left"></i></div>
-                    <div class="calendar-nav-title">2025年6月</div>
-                    <div class="calendar-nav-btn"><i class="fas fa-chevron-right"></i></div>
-                </div>
-                <div class="view-options">
-                    <select style="background: rgba(60,60,60,0.6); color: white; border-radius: 8px; padding: 8px 15px; border: none; outline: none;">
-                        <option>月视图</option>
-                        <option>周视图</option>
-                        <option>日视图</option>
-                    </select>
-                </div>
+            <div class="taskbar-icon" data-app="settings">
+                <i class="fas fa-cog"></i>
             </div>
             
-            <div class="calendar-weekdays">
-                <div>周日</div>
-                <div>周一</div>
-                <div>周二</div>
-                <div>周三</div>
-                <div>周四</div>
-                <div>周五</div>
-                <div>周六</div>
-            </div>
-            
-            <div class="calendar-days">
-                <!-- 上个月的日期 -->
-                <div class="calendar-day other-month">26</div>
-                <div class="calendar-day other-month">27</div>
-                <div class="calendar-day other-month">28</div>
-                <div class="calendar-day other-month">29</div>
-                <div class="calendar-day other-month">30</div>
-                <div class="calendar-day other-month">31</div>
-                
-                <!-- 本月日期 -->
-                <div class="calendar-day today">1</div>
-                <div class="calendar-day">2</div>
-                <div class="calendar-day event">3</div>
-                <div class="calendar-day">4</div>
-                <div class="calendar-day">5</div>
-                <div class="calendar-day event">6</div>
-                <div class="calendar-day">7</div>
-                <div class="calendar-day event">8</div>
-                <div class="calendar-day">9</div>
-                <div class="calendar-day">10</div>
-                <div class="calendar-day">11</div>
-                <div class="calendar-day selected">12</div>
-                <div class="calendar-day">13</div>
-                <div class="calendar-day event">14</div>
-                <div class="calendar-day">15</div>
-                <div class="calendar-day">16</div>
-                <div class="calendar-day event">17</div>
-                <div class="calendar-day">18</div>
-                <div class="calendar-day">19</div>
-                <div class="calendar-day">20</div>
-                <div class="calendar-day">21</div>
-                <div class="calendar-day">22</div>
-                <div class="calendar-day">23</div>
-                <div class="calendar-day">24</div>
-                <div class="calendar-day">25</div>
-                <div class="calendar-day">26</div>
-                <div class="calendar-day event">27</div>
-                <div class="calendar-day">28</div>
-                <div class="calendar-day">29</div>
-                <div class="calendar-day">30</div>
-                
-                <!-- 下个月的日期 -->
-                <div class="calendar-day other-month">1</div>
-                <div class="calendar-day other-month">2</div>
-                <div class="calendar-day other-month">3</div>
-            </div>
-            
-            <div id="calendar-events">
-                <h3 style="color:white; margin-bottom:15px; font-weight:500;">今日日程</h3>
-                <div class="calendar-event">
-                    <div class="event-time">09:30 - 11:00</div>
-                    <div class="event-title">团队会议 - 项目更新</div>
+            <div id="system-tray">
+                <div class="tray-icon">
+                    <i class="fas fa-wifi"></i>
                 </div>
-                <div class="calendar-event">
-                    <div class="event-time">13:00 - 14:00</div>
-                    <div class="event-title">与客户午餐会议</div>
+                <div class="tray-icon">
+                    <i class="fas fa-volume-up"></i>
                 </div>
-                <div class="calendar-event">
-                    <div class="event-time">15:30 - 16:00</div>
-                    <div class="event-title">产品演示会</div>
+                <div class="tray-time">2025年6月13日 15:30</div>
+            </div>
+        </div>
+        
+        <!-- 应用窗口 -->
+        <!-- 文件资源管理器 -->
+        <div id="file-explorer" class="window" style="top: 100px; left: 200px; width: 800px; height: 500px;">
+            <div class="window-header">
+                <div class="window-title">文件资源管理器</div>
+                <div class="window-controls">
+                    <div class="window-btn window-minimize"><i class="fas fa-minus"></i></div>
+                    <div class="window-btn window-maximize"><i class="far fa-square"></i></div>
+                    <div class="window-btn window-close"><i class="fas fa-times"></i></div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div id="file-explorer-content">
+                    <div id="file-sidebar">
+                        <div class="file-item active">
+                            <i class="fas fa-home"></i> 主页
+                        </div>
+                        <div class="file-item">
+                            <i class="fas fa-desktop"></i> 桌面
+                        </div>
+                        <div class="file-item">
+                            <i class="fas fa-download"></i> 下载
+                        </div>
+                        <div class="file-item">
+                            <i class="fas fa-folder"></i> 文档
+                        </div>
+                        <div class="file-item">
+                            <i class="fas fa-hdd"></i> 本地磁盘 (C:)
+                        </div>
+                    </div>
+                    <div id="file-main">
+                        <div class="path-bar">
+                            主页 > 桌面
+                        </div>
+                        <div class="files-grid">
+                            <div class="file-icon">
+                                <i class="fas fa-folder"></i>
+                                <span>重要项目</span>
+                            </div>
+                            <div class="file-icon">
+                                <i class="fas fa-folder"></i>
+                                <span>个人文档</span>
+                            </div>
+                            <div class="file-icon">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>月度报告.pdf</span>
+                            </div>
+                            <div class="file-icon">
+                                <i class="fas fa-file-word"></i>
+                                <span>项目文档.docx</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- 终端应用（完全修复版） -->
-    <div id="terminal" class="window" style="top: 200px; left: 400px; width: 650px; height: 450px;">
-        <div class="window-header">
-            <div class="window-title">终端 - PowerShell</div>
-            <div class="window-controls">
-                <div class="window-btn window-minimize"><i class="fas fa-minus"></i></div>
-                <div class="window-btn window-maximize"><i class="far fa-square"></i></div>
-                <div class="window-btn window-close"><i class="fas fa-times"></i></div>
+        
+        <!-- 设置应用 -->
+        <div id="settings" class="window" style="top: 120px; left: 300px; width: 850px; height: 600px;">
+            <div class="window-header">
+                <div class="window-title">设置</div>
+                <div class="window-controls">
+                    <div class="window-btn window-minimize"><i class="fas fa-minus"></i></div>
+                    <div class="window-btn window-maximize"><i class="far fa-square"></i></div>
+                    <div class="window-btn window-close"><i class="fas fa-times"></i></div>
+                </div>
             </div>
-        </div>
-        <div class="window-content">
-            <div id="terminal-header">
-                <i class="fas fa-terminal"></i> Windows PowerShell [版本 10.0.22509.1000]
-            </div>
-            <div id="terminal-content">
-                <div>版权所有 (C) Microsoft Corporation。保留所有权利。</div>
-                <br>
-                <div>PS C:\Users\Administrator&gt; <span class="terminal-output">Get-Process | Where-Object { $_.CPU -gt 100 }</span></div>
-                <div class="terminal-output">Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName</div>
-                <div class="terminal-output">-------  ------    -----      -----     ------     --  -- -----------</div>
-                <div class="terminal-output">    587      34   127348     128352     102.98   2956   1 chrome</div>
-                <div class="terminal-output">    294      15    31336      34112     108.45   3084   1 explorer</div>
-                <div class="terminal-output">    121      12    18324      20228     115.77   4120   1 teams</div>
-                <div class="terminal-output">    345      28    65208      68524     126.83   5296   1 OUTLOOK</div>
-                <br>
-                <div>PS C:\Users\Administrator&gt; <span class="terminal-output">date</span></div>
-                <div class="terminal-output">2025年6月13日 15:30:24</div>
-                <br>
-            </div>
-            <div id="terminal-input">
-                <span id="terminal-prompt">PS C:\Users\Administrator&gt;</span>
-                <input type="text" id="terminal-command" value="help" autocomplete="off">
+            <div class="window-content">
+                <div id="settings-sidebar">
+                    <div class="settings-item active" data-target="system">
+                        <i class="fas fa-laptop"></i> 系统
+                    </div>
+                    <div class="settings-item" data-target="personalization">
+                        <i class="fas fa-paint-brush"></i> 个性化
+                    </div>
+                    <div class="settings-item" data-target="network">
+                        <i class="fas fa-wifi"></i> 网络和Internet
+                    </div>
+                    <div class="settings-item" data-target="apps">
+                        <i class="fas fa-th-large"></i> 应用
+                    </div>
+                    <div class="settings-item" data-target="accounts">
+                        <i class="fas fa-user-circle"></i> 帐户
+                    </div>
+                    <div class="settings-item" data-target="update">
+                        <i class="fas fa-sync-alt"></i> 更新和安全
+                    </div>
+                </div>
+                <div id="settings-content">
+                    <div class="settings-section active" id="system-section">
+                        <div class="settings-header">系 统</div>
+                        
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <i class="fas fa-display"></i>
+                                <h3>显示</h3>
+                                <p>分辨率: 2560x1440</p>
+                                <p>缩放：150%</p>
+                                <p>刷新率: 60Hz</p>
+                            </div>
+                            
+                            <div class="spec-item">
+                                <i class="fas fa-volume-high"></i>
+                                <h3>声音</h3>
+                                <p>输出设备: 内置扬声器</p>
+                                <p>输入设备: 内置麦克风</p>
+                            </div>
+                            
+                            <div class="spec-item">
+                                <i class="fas fa-power-off"></i>
+                                <h3>电源</h3>
+                                <p>电源模式: 平衡</p>
+                                <p>屏幕关闭时间: 10分钟</p>
+                                <p>睡眠时间: 30分钟</p>
+                            </div>
+                            
+                            <div class="spec-item">
+                                <i class="fas fa-battery-full"></i>
+                                <h3>电池</h3>
+                                <p>剩余: 87%</p>
+                                <p>使用时间: 约6小时</p>
+                                <p>状态: 已接通电源</p>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <h3>关于此电脑</h3>
+                            <div class="about-grid">
+                                <div class="system-icon">
+                                    <i class="fab fa-windows"></i>
+                                </div>
+                                <div class="system-info">
+                                    <div class="info-item">
+                                        <div class="info-label">设备名称</div>
+                                        <div class="info-value">DEVICE-PC</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">操作系统</div>
+                                        <div class="info-value">Microsoft Windows 11 Pro</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">系统版本</div>
+                                        <div class="info-value">22H2 (Build 22621.1413)</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">处理器</div>
+                                        <div class="info-value">Intel Core i7-12700K @ 3.60GHz</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">内存</div>
+                                        <div class="info-value">32GB DDR5 @ 4800MHz</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">显卡</div>
+                                        <div class="info-value">NVIDIA GeForce RTX 3080 10GB</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">存储</div>
+                                        <div class="info-value">1TB NVMe SSD</div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-label">设备ID</div>
+                                        <div class="info-value">7D9F4A1C-2B3D-47E8-9A1A-0F9B8C7D6E5F</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section" id="personalization-section">
+                        <div class="settings-header">个性化</div>
+                        <div class="settings-card">
+                            <h3>背景</h3>
+                            <p>当前背景: Windows 默认</p>
+                        </div>
+                        <div class="settings-card">
+                            <h3>颜色</h3>
+                            <p>强调色: #0078D7</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1406,87 +978,96 @@
     <script>
         // 应用状态管理
         const apps = {
-            'file-explorer': { open: true, minimized: false, maximized: false, flashing: false },
-            'browser': { open: true, minimized: false, maximized: false, flashing: false },
-            'photos': { open: true, minimized: false, maximized: false, flashing: false },
-            'calendar': { open: true, minimized: false, maximized: false, flashing: false },
-            'terminal': { open: true, minimized: false, maximized: false, flashing: false },
-            'settings': { open: false, minimized: false, maximized: false, flashing: false },
-            'store': { open: false, minimized: false, maximized: false, flashing: false }
+            'file-explorer': { open: true, minimized: false, maximized: false },
+            'browser': { open: true, minimized: false, maximized: false },
+            'terminal': { open: true, minimized: false, maximized: false },
+            'settings': { open: true, minimized: false, maximized: false },
+            'photos': { open: false, minimized: false, maximized: false },
+            'store': { open: false, minimized: false, maximized: false }
         };
         
-        // 当前活动窗口
-        let activeWindow = 'file-explorer';
+        // 设置菜单状态
+        const settingsSections = {
+            system: true,
+            personalization: false,
+            network: false,
+            apps: false,
+            accounts: false,
+            update: false
+        };
         
         // DOM 加载完成后初始化
         document.addEventListener('DOMContentLoaded', () => {
+            // 初始化登录功能
+            initLogin();
+            
             // 初始化组件
             initDesktop();
             initTaskbar();
             initWindows();
-            initStartMenu();
-            initBrowser();
-            initTerminal();
+            initSettings();
             updateDateTime();
             
             // 每秒更新时间
-            setInterval(updateDateTime, 60000);
-            
-            // 预加载一些应用状态
-            document.getElementById('file-explorer').classList.add('visible');
-            document.getElementById('browser').classList.add('visible');
-            document.getElementById('photos').classList.add('visible');
-            document.getElementById('calendar').classList.add('visible');
-            document.getElementById('terminal').classList.add('visible');
+            setInterval(updateDateTime, 1000);
         });
+        
+        // 初始化登录功能
+        function initLogin() {
+            const loginBtn = document.getElementById('signin-btn');
+            const loginFooter = document.querySelector('.login-footer');
+            
+            loginBtn.addEventListener('click', () => {
+                document.getElementById('login-screen').classList.add('hidden');
+                setTimeout(() => {
+                    document.getElementById('windows-container').classList.add('active');
+                }, 500);
+            });
+            
+            // 锁屏功能
+            loginFooter.addEventListener('click', () => {
+                alert('系统已锁定');
+                document.getElementById('windows-container').classList.remove('active');
+                document.getElementById('login-screen').classList.remove('hidden');
+            });
+        }
         
         // 初始化桌面
         function initDesktop() {
             const desktopIcons = document.querySelectorAll('.desktop-icon');
-            desktopIcons.forEach(icon => {
-                icon.addEventListener('click', (e) => {
-                    const appId = e.currentTarget.dataset.app;
-                    openApp(appId);
-                    
-                    // 图标点击效果
-                    icon.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        icon.style.transform = 'scale(1)';
-                    }, 300);
-                });
+            desktopIcons.forEach((icon, index) => {
+                setTimeout(() => {
+                    icon.style.animationDelay = `${index * 0.1}s`;
+                    icon.addEventListener('click', (e) => {
+                        const appId = e.currentTarget.dataset.app;
+                        openApp(appId);
+                        
+                        // 添加点击动画
+                        icon.animate([
+                            { transform: 'scale(0.95)', opacity: 0.8 },
+                            { transform: 'scale(1)', opacity: 1 }
+                        ], { duration: 300, easing: 'ease-out' });
+                    });
+                }, 100);
             });
         }
         
         // 初始化任务栏
         function initTaskbar() {
-            // 开始按钮事件
-            document.getElementById('start-button').addEventListener('click', toggleStartMenu);
-            
             // 任务栏图标事件
             const taskbarIcons = document.querySelectorAll('.taskbar-icon[data-app]');
             taskbarIcons.forEach(icon => {
                 const appId = icon.dataset.app;
                 
                 icon.addEventListener('click', (e) => {
-                    // 创建涟漪效果
-                    const ripple = document.createElement('span');
-                    ripple.classList.add('ripple');
-                    
-                    const rect = icon.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    ripple.style.width = size + 'px';
-                    ripple.style.height = size + 'px';
-                    ripple.style.top = (rect.height/2 - size/2) + 'px';
-                    ripple.style.left = (rect.width/2 - size/2) + 'px';
-                    
-                    icon.appendChild(ripple);
-                    
-                    // 处理应用窗口
                     toggleApp(appId);
                     
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
+                    // 添加点击动画
+                    icon.animate([
+                        { transform: 'scale(1)' },
+                        { transform: 'scale(0.9)' },
+                        { transform: 'scale(1)' }
+                    ], { duration: 300, easing: 'ease-out' });
                 });
             });
         }
@@ -1520,170 +1101,83 @@
             });
         }
         
-        // 初始化浏览器功能
-        function initBrowser() {
-            const urlBar = document.getElementById('url-bar');
-            const iframe = document.querySelector('#browser-content iframe');
+        // 初始化设置应用
+        function initSettings() {
+            const settingsItems = document.querySelectorAll('.settings-item');
             
-            urlBar.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    let url = urlBar.value.trim();
-                    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                        url = 'https://' + url;
-                    }
-                    try {
-                        iframe.src = url;
-                        urlBar.value = url;
-                    } catch (error) {
-                        console.error('Error loading URL:', error);
-                    }
-                }
-            });
-        }
-        
-        // 初始化终端功能
-        function initTerminal() {
-            const terminalInput = document.getElementById('terminal-command');
-            const terminalContent = document.getElementById('terminal-content');
-            
-            terminalInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    const command = terminalInput.value.trim();
-                    executeTerminalCommand(command);
-                    terminalInput.value = '';
-                }
-            });
-            
-            function executeTerminalCommand(command) {
-                if (!command) return;
-                
-                const outputDiv = document.createElement('div');
-                outputDiv.className = 'terminal-output';
-                
-                if (command === 'help') {
-                    outputDiv.innerHTML = `
-                        <div>Windows PowerShell 帮助</div>
-                        <div>命令:</div>
-                        <div>  date - 显示当前日期和时间</div>
-                        <div>  ver - 显示系统版本</div>
-                        <div>  cls - 清除屏幕</div>
-                        <div>  help - 显示帮助信息</div>
-                        <div>  whoami - 显示当前用户</div>
-                        <div>  exit - 退出终端</div>
-                    `;
-                } 
-                else if (command === 'date') {
-                    const now = new Date();
-                    outputDiv.textContent = now.toLocaleString('zh-CN', { 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit'
+            settingsItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const target = item.dataset.target;
+                    
+                    // 更新活动项
+                    settingsItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // 显示对应内容
+                    document.querySelectorAll('.settings-section').forEach(section => {
+                        section.classList.remove('active');
                     });
-                }
-                else if (command === 'ver') {
-                    outputDiv.textContent = 'Microsoft Windows [版本 10.0.22621.1928]';
-                }
-                else if (command === 'cls') {
-                    terminalContent.innerHTML = '';
-                    return; // 不需要添加输出
-                }
-                else if (command === 'whoami') {
-                    outputDiv.textContent = 'DESKTOP-ABC123\\Administrator';
-                }
-                else if (command === 'exit') {
-                    outputDiv.textContent = '正在退出终端...';
-                    setTimeout(() => {
-                        closeWindow('terminal');
-                    }, 500);
-                }
-                else {
-                    outputDiv.textContent = `命令 "${command}" 无法识别。输入 "help" 查看可用命令。`;
-                }
-                
-                const promptDiv = document.createElement('div');
-                promptDiv.innerHTML = `PS C:\\Users\\Administrator&gt; <span class="terminal-output">${command}</span>`;
-                
-                terminalContent.appendChild(promptDiv);
-                terminalContent.appendChild(outputDiv);
-                terminalContent.scrollTop = terminalContent.scrollHeight;
-            }
-        }
-        
-        // 初始化开始菜单
-        function initStartMenu() {
-            const searchInput = document.querySelector('#search-box input');
-            const pinnedApps = document.querySelectorAll('.pinned-app');
-            
-            searchInput.addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase();
-                pinnedApps.forEach(app => {
-                    const appName = app.querySelector('span').textContent.toLowerCase();
-                    app.style.display = appName.includes(query) ? 'flex' : 'none';
-                });
-            });
-            
-            pinnedApps.forEach(app => {
-                app.addEventListener('click', () => {
-                    toggleStartMenu();
-                    const appId = app.querySelector('span').textContent.toLowerCase();
-                    if (appId.includes('edge')) openApp('browser');
-                    else if (appId.includes('照片')) openApp('photos');
-                    else openApp('file-explorer');
+                    document.getElementById(`${target}-section`).classList.add('active');
                 });
             });
         }
         
         // 打开应用
         function openApp(appId) {
-            if (!apps[appId]) return;
+            const windowElem = document.getElementById(appId);
+            if (!windowElem) return;
             
+            // 显示窗口
+            windowElem.classList.add('visible');
             apps[appId].open = true;
             apps[appId].minimized = false;
             
-            // 显示应用窗口
-            const windowElem = document.getElementById(appId);
-            if (windowElem) {
-                windowElem.classList.add('visible');
-                setActiveWindow(appId);
-            }
-            
-            // 更新任务栏状态
-            updateTaskbarIcon(appId, true);
+            // 设置活动窗口
+            setActiveWindow(appId);
         }
         
-        // 切换开始菜单
-        function toggleStartMenu() {
-            const startMenu = document.getElementById('start-menu');
-            const isVisible = startMenu.classList.contains('visible');
+        // 切换应用状态
+        function toggleApp(appId) {
+            const windowElem = document.getElementById(appId);
+            if (!windowElem) return;
             
-            if (isVisible) {
-                startMenu.classList.remove('visible');
-                startMenu.classList.add('closing');
-                setTimeout(() => {
-                    startMenu.classList.remove('closing');
-                }, 300);
+            if (!apps[appId].open || apps[appId].minimized) {
+                openApp(appId);
             } else {
-                startMenu.classList.remove('closing');
-                startMenu.classList.add('visible');
+                minimizeWindow(appId);
             }
         }
         
-        // 最大化/还原窗口
-        function maximizeWindow(appId) {
-            if (!apps[appId] || !apps[appId].open) return;
-            
-            apps[appId].maximized = !apps[appId].maximized;
+        // 最小化窗口
+        function minimizeWindow(appId) {
             const windowElem = document.getElementById(appId);
+            if (!windowElem) return;
             
-            // 切换最大化类
-            windowElem.classList.toggle('maximized', apps[appId].maximized);
+            // 添加最小化动画
+            windowElem.animate([
+                { transform: 'scale(1)', opacity: 1 },
+                { transform: 'scale(0.8) translateY(20px)', opacity: 0 }
+            ], { duration: 300, easing: 'ease-in' }).onfinish = () => {
+                windowElem.classList.remove('visible');
+                apps[appId].minimized = true;
+            };
+        }
+        
+        // 最大化窗口
+        function maximizeWindow(appId) {
+            const windowElem = document.getElementById(appId);
+            const maximizeBtn = windowElem.querySelector('.window-maximize');
+            if (!windowElem || !maximizeBtn) return;
             
-            // 更新最大化图标
-            const maximizeIcon = windowElem.querySelector('.window-maximize i');
-            maximizeIcon.className = apps[appId].maximized ? 'far fa-window-restore' : 'far fa-square';
+            if (!apps[appId].maximized) {
+                windowElem.classList.add('maximized');
+                maximizeBtn.innerHTML = '<i class="fas fa-clone"></i>';
+                apps[appId].maximized = true;
+            } else {
+                windowElem.classList.remove('maximized');
+                maximizeBtn.innerHTML = '<i class="far fa-square"></i>';
+                apps[appId].maximized = false;
+            }
             
             // 设置活动窗口
             setActiveWindow(appId);
@@ -1691,110 +1185,118 @@
         
         // 关闭窗口
         function closeWindow(appId) {
-            if (!apps[appId] || !apps[appId].open) return;
-            
-            apps[appId].open = false;
             const windowElem = document.getElementById(appId);
+            if (!windowElem) return;
             
-            // 隐藏窗口
-            windowElem.classList.remove('visible');
-            
-            // 更新任务栏状态
-            updateTaskbarIcon(appId, false);
+            // 添加关闭动画
+            windowElem.animate([
+                { transform: 'scale(1)', opacity: 1 },
+                { transform: 'scale(0.8)', opacity: 0 }
+            ], { duration: 300, easing: 'ease-in' }).onfinish = () => {
+                windowElem.classList.remove('visible');
+                apps[appId].open = false;
+                apps[appId].minimized = false;
+                
+                // 移除任务栏图标高亮
+                const taskbarIcon = document.querySelector(`.taskbar-icon[data-app="${appId}"]`);
+                if (taskbarIcon) {
+                    taskbarIcon.classList.remove('active');
+                }
+                
+                // 重置最大化状态
+                if (apps[appId].maximized) {
+                    windowElem.classList.remove('maximized');
+                    apps[appId].maximized = false;
+                    
+                    const maximizeBtn = windowElem.querySelector('.window-maximize');
+                    if (maximizeBtn) {
+                        maximizeBtn.innerHTML = '<i class="far fa-square"></i>';
+                    }
+                }
+            };
         }
         
         // 设置活动窗口
         function setActiveWindow(appId) {
-            activeWindow = appId;
+            // 移除所有窗口的活动状态
+            document.querySelectorAll('.window').forEach(window => {
+                window.classList.remove('active');
+                window.style.zIndex = '10';
+            });
             
-            // 更新所有窗口的层级和活动状态
-            document.querySelectorAll('.window').forEach(windowElem => {
-                if (windowElem.id === appId) {
-                    windowElem.style.zIndex = '20';
-                    windowElem.querySelector('.window-header').classList.add('active');
-                } else {
-                    // 降低非活动窗口的层级
-                    windowElem.style.zIndex = '10';
-                    windowElem.querySelector('.window-header').classList.remove('active');
+            // 设置当前窗口为活动状态
+            const activeWindow = document.getElementById(appId);
+            if (activeWindow) {
+                activeWindow.classList.add('active');
+                activeWindow.style.zIndex = '20';
+                
+                // 更新任务栏状态
+                document.querySelectorAll('.taskbar-icon').forEach(icon => {
+                    icon.classList.remove('active');
+                });
+                
+                const taskbarIcon = document.querySelector(`.taskbar-icon[data-app="${appId}"]`);
+                if (taskbarIcon) {
+                    taskbarIcon.classList.add('active');
                 }
-            });
-            
-            // 更新任务栏图标状态
-            document.querySelectorAll('.taskbar-icon[data-app]').forEach(icon => {
-                icon.classList.toggle('active', icon.dataset.app === appId);
-            });
-        }
-        
-        // 更新任务栏图标状态
-        function updateTaskbarIcon(appId, isActive) {
-            const taskbarIcon = document.querySelector(`.taskbar-icon[data-app="${appId}"]`);
-            if (taskbarIcon) {
-                taskbarIcon.classList.toggle('active', isActive);
             }
-        }
-        
-        // 更新时间
-        function updateDateTime() {
-            const now = new Date();
-            const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-            const timeOptions = { hour: '2-digit', minute: '2-digit' };
-            
-            const dateStr = now.toLocaleDateString('zh-CN', dateOptions);
-            const timeStr = now.toLocaleTimeString('zh-CN', timeOptions);
-            
-            document.querySelector('.tray-time').textContent = `${dateStr} ${timeStr}`;
         }
         
         // 使窗口可拖动
         function makeWindowsDraggable() {
-            const windows = document.querySelectorAll('.window:not(.maximized)');
-            
-            windows.forEach(window => {
-                const header = window.querySelector('.window-header');
-                let isDragging = false;
-                let currentX, currentY, initialX, initialY;
-                
-                header.addEventListener('mousedown', dragStart);
-                document.addEventListener('mousemove', drag);
-                document.addEventListener('mouseup', dragEnd);
-                
-                function dragStart(e) {
-                    if (apps[window.id].maximized) return;
-                    
-                    isDragging = true;
-                    initialX = e.clientX - window.offsetLeft;
-                    initialY = e.clientY - window.offsetTop;
-                    
-                    // 设置活动窗口
-                    setActiveWindow(window.id);
-                    
-                    // 提升层级
-                    window.style.zIndex = '30';
-                }
-                
-                function drag(e) {
-                    if (isDragging) {
-                        e.preventDefault();
-                        
-                        currentX = e.clientX - initialX;
-                        currentY = e.clientY - initialY;
-                        
-                        // 限制窗口在可视区域内(作者:kunkun999,转发或二次分发本代码需遵循MIT 开源协议不可删除此段注释内容！)
-                        const maxX = window.innerWidth - window.offsetWidth;
-                        const maxY = window.innerHeight - window.offsetHeight;
-                        
-                        currentX = Math.max(0, Math.min(currentX, maxX));
-                        currentY = Math.max(0, Math.min(currentY, maxY));
-                        
-                        window.style.left = currentX + 'px';
-                        window.style.top = currentY + 'px';
-                    }
-                }
-                
-                function dragEnd() {
-                    isDragging = false;
-                }
+            document.querySelectorAll('.window-header').forEach(header => {
+                header.addEventListener('mousedown', initDrag);
             });
+            
+            function initDrag(e) {
+                const windowElem = this.parentElement;
+                const appId = windowElem.id;
+                
+                // 设置活动窗口
+                setActiveWindow(appId);
+                
+                // 获取初始位置
+                const rect = windowElem.getBoundingClientRect();
+                const offsetX = e.clientX - rect.left;
+                const offsetY = e.clientY - rect.top;
+                
+                function moveWindow(e) {
+                    const x = e.clientX - offsetX;
+                    const y = e.clientY - offsetY;
+                    
+                    // 限制在屏幕内
+                    const maxX = window.innerWidth - rect.width;
+                    const maxY = window.innerHeight - document.getElementById('taskbar').offsetHeight - rect.height;
+                    
+                    windowElem.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
+                    windowElem.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
+                }
+                
+                function stopDrag() {
+                    document.removeEventListener('mousemove', moveWindow);
+                    document.removeEventListener('mouseup', stopDrag);
+                }
+                
+                document.addEventListener('mousemove', moveWindow);
+                document.addEventListener('mouseup', stopDrag);
+            }
+        }
+        
+        // 更新时间显示
+        function updateDateTime() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            const timeStr = now.toLocaleTimeString('zh-CN', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            document.querySelector('.tray-time').textContent = `${dateStr} ${timeStr}`;
         }
     </script>
 </body>
